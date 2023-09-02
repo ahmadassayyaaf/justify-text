@@ -1,0 +1,25 @@
+// Import dependencies
+import { Plugin } from 'obsidian';
+
+export default class JustifyTextPlugin extends Plugin {
+  onload() {
+    // Register the command to justify text
+    this.addCommand({
+      id: 'justify-text',
+      name: 'Justify Text',
+      callback: () => {
+        this.justifySelectedText();
+      },
+    });
+  }
+
+  justifySelectedText() {
+    const editor = this.app.workspace.activeLeaf.view.editor;
+    const selectedText = editor.getSelection();
+    
+    if (selectedText) {
+      const justifiedText = selectedText.replace(/\n/g, ' ').trim();
+      editor.replaceSelection(justifiedText);
+    }
+  }
+}
